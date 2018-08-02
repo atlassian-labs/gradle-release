@@ -1,7 +1,7 @@
 plugins {
     `java-gradle-plugin`
     `kotlin-dsl`
-    `maven-publish`
+    id("com.gradle.plugin-publish").version("0.10.0")
     id("pl.allegro.tech.build.axion-release").version("1.8.1")
 }
 
@@ -20,9 +20,16 @@ gradlePlugin {
     }
 }
 
-publishing {
-    repositories {
-        mavenLocal()
+pluginBundle {
+    website = "https://bitbucket.org/atlassian/gradle-release"
+    vcsUrl = "https://bitbucket.org/atlassian/gradle-release"
+    (plugins) {
+        "${project.group}.${project.name}" {
+            displayName = "Performance Tools release plugin"
+            description = "Performance Tools release plugin"
+            version = scmVersion.version
+            tags = listOf("individual")
+        }
     }
 }
 
