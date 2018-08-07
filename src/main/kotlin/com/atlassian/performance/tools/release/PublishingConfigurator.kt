@@ -33,6 +33,14 @@ class PublishingConfigurator(
                     connection.set("scm:git:git@bitbucket.org:atlassian/${project.name}.git")
                     developerConnection.set("scm:git:git@bitbucket.org:atlassian/${project.name}.git")
                 }
+
+                licenses {
+                    license {
+                        name.set("Apache License 2.0")
+                        url.set("http://www.apache.org/licenses/LICENSE-2.0")
+                        distribution.set("repo")
+                    }
+                }
             }
             from(component)
             artifact(source.jar)
@@ -53,6 +61,11 @@ class PublishingConfigurator(
             into("META-INF/maven/${project.group}/${project.name}") {
                 rename(".*", "pom.xml")
                 from(project.tasks.withType(GenerateMavenPom::class.java).single())
+            }
+            into("META-INF") {
+                from(".")
+                include("LICENSE.txt")
+                include("NOTICE.txt")
             }
         }
     }
