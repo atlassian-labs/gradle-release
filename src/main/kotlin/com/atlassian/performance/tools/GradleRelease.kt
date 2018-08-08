@@ -1,5 +1,6 @@
 package com.atlassian.performance.tools
 
+import com.atlassian.performance.tools.license.VerifyLicensingTask
 import com.atlassian.performance.tools.release.PublishingConfigurator
 import com.atlassian.performance.tools.release.ReleaseConfigurator
 import com.atlassian.performance.tools.release.javadoc.JavadocConfigurator
@@ -18,6 +19,9 @@ open class GradleRelease : Plugin<Project> {
         val scmVersion = ReleaseConfigurator(project).configureRelease()
         val source = SourceConfigurator(project).configureSources()
         val javadoc = JavadocConfigurator(project).configureJavadoc()
+
+        val verifyLicense = project.tasks.create("verifyLicensing", VerifyLicensingTask::class.java)
+        verifyLicense.group = "Release"
 
         PublishingConfigurator(
             project = project,

@@ -3,6 +3,9 @@
 Gradle plugin that helps with SCM and release management for 
 [Performance Tools](https://bitbucket.org/account/user/atlassian/projects/PT) modules.
 
+### Verifying licenses
+Execute `./gradlew verifyLicensing`  to  scan dependencies and verify if all the licenses are valid.
+
 ### Version management
 SCM is an ultimate source of truth about project version and you will not find it hardcoded in the source code.
 To get the current version of the project from Git execute `./gradlew currentVersion`.

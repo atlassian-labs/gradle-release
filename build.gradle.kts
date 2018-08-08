@@ -36,6 +36,7 @@ pluginBundle {
 dependencies {
     compile(gradlePlugin("pl.allegro.tech.build.axion-release", "1.8.1"))
     compile(gradlePlugin("org.jetbrains.dokka", "0.9.17"))
+    compile(gradlePlugin("com.github.hierynomus.license", "0.14.0"))
     compile("net.linguica.gradle:maven-settings-plugin:0.5")
     testCompile("junit:junit:4.12")
     testCompile("org.hamcrest:hamcrest-library:1.3")
