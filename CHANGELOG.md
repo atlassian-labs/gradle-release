@@ -7,6 +7,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased]
 ### Added
 - Add more licenses to allowedLicenses list
+- Run `verifyLicensing` before `check` task
 ### Fixed
 - Add description to  `verifyLicensing` task
 

@@ -11,15 +11,14 @@ class VerifyLicensingTaskTest {
 
     @Test
     fun shouldVerifyLicenses() {
-        val verifyLicenseTask = ":verifyLicensing"
         val result = GradleRunner.create()
                 .withProjectDir(configureBuildGradle())
-                .withArguments(verifyLicenseTask)
+                .withArguments(":check")
                 .withPluginClasspath()
                 .withDebug(true)
                 .build()
 
-        assertEquals(SUCCESS, result.task(verifyLicenseTask)!!.outcome)
+        assertEquals(SUCCESS, result.task(":verifyLicensing")!!.outcome)
     }
 
     private fun configureBuildGradle(): File {
