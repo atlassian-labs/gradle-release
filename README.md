@@ -23,14 +23,10 @@ For more information please refer to [axion-release-plugin docs](http://axion-re
 and [Maven Publish Plugin docs](https://docs.gradle.org/current/userguide/publishing_maven.html)
 
 #### Repositories
-The plugin automatically configures Atlassian *maven-private* repository and Atlassian *maven-private-snapshot* repository 
-for *SNAPSHOT* releases. The credentials are read from `atlassian_private_username` and `atlassian_private_password` env
+The plugin automatically configures Atlassian *maven-private* repository.
+The credentials are read from `atlassian_private_username` and `atlassian_private_password` env
 variables with a fallback to *Maven* `settings.xml` file.
 
-
-
-##License
+## License
 Copyright (c) 2018 Atlassian and others.
 Apache 2.0 licensed, see [LICENSE.txt](LICENSE.txt) file.
-
-

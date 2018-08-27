@@ -5,6 +5,14 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
+[Unreleased]: https://bitbucket.org/atlassian/jira-performance-tests/branches/compare/master%0Drelease-0.3.0
+
+## [0.3.0] - 2018-08-27
+[0.3.0]: https://bitbucket.org/atlassian/jira-performance-tests/branches/compare/release-0.3.0%0Drelease-0.2.0
+
+### Removed
+- Stop publishing to snapshot repositories.
+- Stop depending on snapshot repositories.
 
 ## [0.2.0] - 2018-08-09
 ### Added

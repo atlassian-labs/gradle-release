@@ -15,7 +15,6 @@ class RepositoryConfigurator(
 ) {
     fun configureAtlassianRepositories(): PublishingRepositories {
         var main: MavenArtifactRepository? = null
-        var snapshot: MavenArtifactRepository? = null
 
         project.repositories {
             mavenLocal()
@@ -29,13 +28,9 @@ class RepositoryConfigurator(
                 name = "atlassian-private"
                 url = URI("https://packages.atlassian.com/maven-private/")
             }
-            snapshot = atlassianPrivateRepository {
-                name = "atlassian-private-snapshot"
-                url = URI("https://packages.atlassian.com/maven-private-snapshot")
-            }
         }
 
-        return PublishingRepositories(main = main!!, snapshot = snapshot!!)
+        return PublishingRepositories(main = main!!)
     }
 
     private fun RepositoryHandler.atlassianPrivateRepository(

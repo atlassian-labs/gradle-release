@@ -49,9 +49,7 @@ class PublishingConfigurator(
 
         includePom()
 
-        if (scmVersion.version.endsWith("SNAPSHOT")) {
-            publishing.repositories.add(publishingRepositories.snapshot)
-        } else {
+        if (scmVersion.version.endsWith("SNAPSHOT").not()) {
             publishing.repositories.add(publishingRepositories.main)
         }
     }
