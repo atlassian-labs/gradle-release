@@ -7,6 +7,8 @@ All the changes are welcome. Please help us to improve code, examples and docume
 
 ## Testing 
 
+Please read [how to test gradle plugins](https://guides.gradle.org/testing-gradle-plugins/). 
+
     ./gradlew test
     
 ## Developer’s environment
