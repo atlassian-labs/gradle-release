@@ -1,5 +1,6 @@
 package com.atlassian.performance.tools.release
 
+import com.atlassian.performance.tools.SigningKeyInformationTask
 import com.atlassian.performance.tools.release.javadoc.Javadoc
 import com.atlassian.performance.tools.release.repositories.PublishingRepositories
 import com.atlassian.performance.tools.release.source.Source
@@ -9,8 +10,11 @@ import org.gradle.api.publish.PublishingExtension
 import org.gradle.api.publish.maven.MavenPublication
 import org.gradle.api.publish.maven.tasks.GenerateMavenPom
 import org.gradle.api.tasks.bundling.Jar
+import org.gradle.kotlin.dsl.extra
 import org.gradle.kotlin.dsl.get
 import org.gradle.kotlin.dsl.getByName
+import org.gradle.plugins.signing.Sign
+import org.gradle.plugins.signing.SigningExtension
 import pl.allegro.tech.build.axion.release.domain.VersionConfig
 
 class PublishingConfigurator(
@@ -46,7 +50,16 @@ class PublishingConfigurator(
             artifact(source.jar)
             artifact(javadoc.jar)
         }
-
+        val signingExtension = SigningExtension(project)
+        signingExtension.sign(publishing.publications)
+        val gatherKeyInformation = project.tasks.create("gatherKeyInformation", SigningKeyInformationTask::class.java)
+        gatherKeyInformation.group = "Release"
+        gatherKeyInformation.description = "Gathers key information"
+        val signMavenJavaPublication = project.getTasksByName("signMavenJavaPublication", false)
+        signMavenJavaPublication.forEach { it.dependsOn(gatherKeyInformation) }
+        project.tasks.withType(Sign::class.java) {
+            onlyIf { project.extra.has(gatherKeyInformation.signingKeyId) }
+        }
         includePom()
 
         if (scmVersion.version.endsWith("SNAPSHOT").not()) {

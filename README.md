@@ -13,6 +13,15 @@ To get the current version of the project from Git execute `./gradlew currentVer
 ### Releasing
 To release a new version of a module that uses the plugin execute `./gradlew release`.
 You should release new version only from *master* branch.
+
+We use [gradle signing plugin](https://docs.gradle.org/current/userguide/signing_plugin.html) to sign our releases.
+Follow instructions from the plugin's documentation to provide your key information. 
+You can use either `gradle.properties` or `environment variables`
+
+    signing.keyId=24875D73
+    signing.password=secret
+    signing.secretKeyRingFile=/Users/me/.gnupg/secring.gpg 
+    
 To publish a new version execute `./gradlew publish`.  
 
 #### Marking new version

@@ -1,8 +1,16 @@
+import org.gradle.api.tasks.testing.logging.TestExceptionFormat
+
 plugins {
     `java-gradle-plugin`
     `kotlin-dsl`
     id("com.gradle.plugin-publish").version("0.10.0")
     id("pl.allegro.tech.build.axion-release").version("1.8.1")
+    id("signing")
+}
+
+tasks.withType<Test>{
+    testLogging.showStandardStreams = true
+    testLogging.exceptionFormat = TestExceptionFormat.FULL
 }
 
 scmVersion {
