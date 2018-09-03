@@ -21,19 +21,20 @@ class RepositoryConfigurator(
             mavenCentral()
 
             maven {
-                name = "atlassian-public"
+                name = "atlassian-external"
                 url = URI("https://packages.atlassian.com/maven-external/")
             }
-            main = atlassianPrivateRepository {
-                name = "atlassian-private"
-                url = URI("https://packages.atlassian.com/maven-private/")
+
+            main = atlassianRepository {
+                name = "atlassian-public"
+                url = URI("https://maven.atlassian.com/public/")
             }
         }
 
         return PublishingRepositories(main = main!!)
     }
 
-    private fun RepositoryHandler.atlassianPrivateRepository(
+    private fun RepositoryHandler.atlassianRepository(
         configuration: MavenArtifactRepository.() -> Unit
     ): MavenArtifactRepository {
         return maven {
@@ -43,12 +44,12 @@ class RepositoryConfigurator(
     }
 
     private fun MavenArtifactRepository.findCredentials(): Action<in PasswordCredentials> {
-        return atlassianPrivateFromEnv()
+        return atlassianCredentialsFromEnv()
             ?: mavenCredentials()
             ?: throw Exception("Maven settings for '$name' are missing")
     }
 
-    private fun atlassianPrivateFromEnv(): Action<in PasswordCredentials>? {
+    private fun atlassianCredentialsFromEnv(): Action<in PasswordCredentials>? {
         val envUsername = System.getenv("atlassian_private_username")
         val envPassword = System.getenv("atlassian_private_password")
         if (envUsername == null || envPassword == null) {
