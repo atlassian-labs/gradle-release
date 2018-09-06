@@ -7,6 +7,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased]
 [Unreleased]: https://bitbucket.org/atlassian/jira-performance-tests/branches/compare/master%0Drelease-0.4.0
 
+### Fixed
+- License check overriding `check` tasks dependencies see [JPERF-58](https://ecosystem.atlassian.net/browse/JPERF-58)
+
 ## [0.4.0] - 2018-09-03
 [0.4.0]: https://bitbucket.org/atlassian/jira-performance-tests/branches/compare/release-0.4.0%0Drelease-0.3.0
 

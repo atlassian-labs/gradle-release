@@ -24,7 +24,7 @@ open class GradleRelease : Plugin<Project> {
         verifyLicense.group = "Release"
         verifyLicense.description = "Verifies if our dependencies use only allowed licenses"
         val check = project.getTasksByName("check", false)
-        check.forEach { it.setDependsOn(listOf(verifyLicense)) }
+        check.forEach { it.dependsOn(verifyLicense) }
 
         PublishingConfigurator(
             project = project,
