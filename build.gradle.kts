@@ -7,11 +7,6 @@ plugins {
     id("signing")
 }
 
-tasks.withType<Test>{
-    testLogging.showStandardStreams = true
-    testLogging.exceptionFormat = TestExceptionFormat.FULL
-}
-
 scmVersion {
     tag.prefix = "release"
 }
