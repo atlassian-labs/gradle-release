@@ -22,7 +22,9 @@ You can use either `gradle.properties` or `environment variables`
     signing.password=secret
     signing.secretKeyRingFile=/Users/me/.gnupg/secring.gpg 
     
-To publish a new version execute `./gradlew publish`.  
+In order to attempt to publish a new version to all configured repositories, execute `./gradlew publish`.
+Some repositories forbid publishing `SNAPSHOT` versions in order to serve only stable and tested artifacts.
+If you want to perform integration test with your `SNAPSHOT` version, you can `./gradlew publishToMavenLocal`.
 
 #### Marking new version
 If you wish to mark a new *major* / *minor* version simply execute ` ./gradlew markNextVersion -Prelease.version=**version**`. 
