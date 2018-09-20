@@ -32,9 +32,11 @@ For more information please refer to [axion-release-plugin docs](http://axion-re
 and [Maven Publish Plugin docs](https://docs.gradle.org/current/userguide/publishing_maven.html)
 
 #### Repositories
-The plugin automatically configures Atlassian *maven-private* repository.
+The plugin automatically configures Atlassian *atlassian-public* repository.
 The credentials are read from `atlassian_private_username` and `atlassian_private_password` env
 variables with a fallback to *Maven* `settings.xml` file.
+If you don't have the credentials, the plugin will not configure them,
+so you can still use the repo anonymously, e.g. for read access.
 
 ## Reporting issues
 

@@ -7,6 +7,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased]
 [Unreleased]: https://bitbucket.org/atlassian/jira-performance-tests/branches/compare/master%0Drelease-0.4.1
 
+### Fixed
+- Support anonymous access to `atlassian-public`. Fix [JPERF-116].
+
+[JPERF-116]: https://ecosystem.atlassian.net/browse/JPERF-116
+
 ## [0.4.1] - 2018-09-06
 [0.4.1]: https://bitbucket.org/atlassian/jira-performance-tests/branches/compare/release-0.4.1%0Drelease-0.4.0
 
