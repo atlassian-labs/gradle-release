@@ -2,7 +2,6 @@ import org.gradle.api.tasks.testing.logging.TestExceptionFormat
 
 plugins {
     `java-gradle-plugin`
-    `kotlin-dsl`
     id("com.gradle.plugin-publish").version("0.10.0")
     id("pl.allegro.tech.build.axion-release").version("1.8.1")
     id("signing")
@@ -20,8 +19,8 @@ project.version = scmVersion.version
 project.group = "com.atlassian.performance.tools"
 
 gradlePlugin {
-    (plugins) {
-        "${project.group}.${project.name}" {
+    plugins {
+        create("${project.group}.${project.name}") {
             id = "${project.group}.${project.name}"
             implementationClass = "${project.group}.GradleRelease"
         }
@@ -61,6 +60,7 @@ repositories {
     gradlePluginPortal()
 }
 
-val wrapper = tasks["wrapper"] as Wrapper
-wrapper.gradleVersion = "4.9"
-wrapper.distributionType = Wrapper.DistributionType.ALL
+task<Wrapper>("wrapper") {
+    gradleVersion = "4.10.2"
+    distributionType = Wrapper.DistributionType.ALL
+}

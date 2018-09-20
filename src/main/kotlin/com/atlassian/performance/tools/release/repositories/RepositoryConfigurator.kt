@@ -5,8 +5,6 @@ import net.linguica.gradle.maven.settings.MavenSettingsPluginExtension
 import org.gradle.api.Project
 import org.gradle.api.artifacts.dsl.RepositoryHandler
 import org.gradle.api.artifacts.repositories.MavenArtifactRepository
-import org.gradle.api.artifacts.repositories.PasswordCredentials
-import org.gradle.api.internal.artifacts.repositories.DefaultPasswordCredentials
 import org.gradle.kotlin.dsl.repositories
 import java.net.URI
 
@@ -39,10 +37,10 @@ class RepositoryConfigurator(
     ): MavenArtifactRepository {
         return maven {
             configuration()
-            findCredentials(repo = this)?.let { creds ->
+            findCredentials(repo = this)?.let { staticCredentials ->
                 credentials {
-                    username = creds.username
-                    password = creds.password
+                    username = staticCredentials.username
+                    password = staticCredentials.password
                 }
             }
         }
@@ -50,29 +48,29 @@ class RepositoryConfigurator(
 
     private fun findCredentials(
         repo: MavenArtifactRepository
-    ): PasswordCredentials? = atlassianCredentialsFromEnv() ?: mavenCredentials(repo)
+    ): StaticPasswordCredentials? = atlassianCredentialsFromEnv() ?: mavenCredentials(repo)
 
-    private fun atlassianCredentialsFromEnv(): PasswordCredentials? {
+    private fun atlassianCredentialsFromEnv(): StaticPasswordCredentials? {
         val envUsername: String? = System.getenv("atlassian_private_username")
         val envPassword: String? = System.getenv("atlassian_private_password")
         return if (envUsername == null || envPassword == null) {
             null
         } else {
-            DefaultPasswordCredentials(
-                envUsername,
-                envPassword
+            StaticPasswordCredentials(
+                username = envUsername,
+                password = envPassword
             )
         }
     }
 
     private fun mavenCredentials(
         repo: MavenArtifactRepository
-    ): PasswordCredentials? {
+    ): StaticPasswordCredentials? {
         val settings = LocalMavenSettingsLoader(MavenSettingsPluginExtension(project)).loadSettings()
         val server = settings.getServer(repo.name) ?: return null
-        return DefaultPasswordCredentials(
-            server.username,
-            server.password
+        return StaticPasswordCredentials(
+            username = server.username,
+            password = server.password
         )
     }
 }
