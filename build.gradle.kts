@@ -42,7 +42,7 @@ dependencies {
     compile(gradlePlugin("com.github.hierynomus.license", "0.14.0"))
     compile("net.linguica.gradle:maven-settings-plugin:0.5")
     testCompile("junit:junit:4.12")
-    testCompile("org.hamcrest:hamcrest-library:1.3")
+    testCompile("org.assertj:assertj-core:3.11.0")
 }
 
 fun gradlePlugin(
