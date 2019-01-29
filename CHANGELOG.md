@@ -5,7 +5,18 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
-[Unreleased]: https://bitbucket.org/atlassian/jira-performance-tests/branches/compare/master%0Drelease-0.4.1
+[Unreleased]: https://bitbucket.org/atlassian/gradle-release/branches/compare/master%0Drelease-0.4.3
+
+## [0.4.3] - 2018-09-20
+[0.4.3]: https://bitbucket.org/atlassian/gradle-release/branches/compare/release-0.4.3%0Drelease-0.4.2
+
+### Fixed
+- Fix Kotlin compilation. Fix [JPERF-118].
+
+[JPERF-118]: https://ecosystem.atlassian.net/browse/JPERF-118
+
+## [0.4.2] - 2018-09-20
+[0.4.2]: https://bitbucket.org/atlassian/gradle-release/branches/compare/release-0.4.2%0Drelease-0.4.1
 
 ### Fixed
 - Support anonymous access to `atlassian-public`. Fix [JPERF-116].
@@ -13,13 +24,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 [JPERF-116]: https://ecosystem.atlassian.net/browse/JPERF-116
 
 ## [0.4.1] - 2018-09-06
-[0.4.1]: https://bitbucket.org/atlassian/jira-performance-tests/branches/compare/release-0.4.1%0Drelease-0.4.0
+[0.4.1]: https://bitbucket.org/atlassian/gradle-release/branches/compare/release-0.4.1%0Drelease-0.4.0
 
 ### Fixed
 - License check overriding `check` tasks dependencies see [JPERF-58](https://ecosystem.atlassian.net/browse/JPERF-58)
 
 ## [0.4.0] - 2018-09-03
-[0.4.0]: https://bitbucket.org/atlassian/jira-performance-tests/branches/compare/release-0.4.0%0Drelease-0.3.0
+[0.4.0]: https://bitbucket.org/atlassian/gradle-release/branches/compare/release-0.4.0%0Drelease-0.3.0
 
 ### Added
 - Sign releases.
@@ -28,7 +39,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Release to atlassian-public maven repository.
 
 ## [0.3.0] - 2018-08-27
-[0.3.0]: https://bitbucket.org/atlassian/jira-performance-tests/branches/compare/release-0.3.0%0Drelease-0.2.0
+[0.3.0]: https://bitbucket.org/atlassian/gradle-release/branches/compare/release-0.3.0%0Drelease-0.2.0
 
 ### Removed
 - Stop publishing to snapshot repositories.
