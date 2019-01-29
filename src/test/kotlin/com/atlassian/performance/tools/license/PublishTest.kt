@@ -2,6 +2,7 @@ package com.atlassian.performance.tools.license
 
 import org.assertj.core.api.Assertions.assertThat
 import org.eclipse.jgit.api.Git
+import org.eclipse.jgit.transport.URIish
 import org.gradle.testkit.runner.GradleRunner
 import org.gradle.testkit.runner.TaskOutcome
 import org.junit.Test
@@ -38,13 +39,13 @@ class PublishTest {
         val scm = extractScm(pomXml)
         assertThat(scm.getChildValue("url"))
             .`as`("SCM url in $pomXml")
-            .isEqualTo("https://bitbucket.org/atlassian/release-test")
+            .isEqualTo("https://github.com/atlassian/release-test")
         assertThat(scm.getChildValue("connection"))
             .`as`("SCM connection in $pomXml")
-            .isEqualTo("scm:git:git@bitbucket.org:atlassian/release-test.git")
+            .isEqualTo("scm:git:git@github.com:atlassian/release-test.git")
         assertThat(scm.getChildValue("developerConnection"))
             .`as`("SCM dev connection in $pomXml")
-            .isEqualTo("scm:git:git@bitbucket.org:atlassian/release-test.git")
+            .isEqualTo("scm:git:git@github.com:atlassian/release-test.git")
     }
 
     private fun extractScm(
@@ -70,6 +71,7 @@ class PublishTest {
         addInitialCommit(projectName, buildFolder, git)
         git.tag().setName("release-$version-alpha").call()
         addCode(buildFolder, git)
+        addRemote(git)
         return buildFolder.root
     }
 
@@ -130,6 +132,16 @@ class PublishTest {
         git
             .commit()
             .setMessage("Hello world")
+            .call()
+    }
+
+    private fun addRemote(
+        git: Git
+    ) {
+        git
+            .remoteAdd()
+            .also { it.setName("origin") }
+            .also { it.setUri(URIish("git@github.com:atlassian/jira-actions.git")) }
             .call()
     }
 
