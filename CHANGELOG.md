@@ -7,6 +7,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased]
 [Unreleased]: https://bitbucket.org/atlassian/gradle-release/branches/compare/master%0Drelease-0.4.3
 
+### Added
+- Infer GitHub remote for POM SCM section. Unblock [JPERF-375].
+
+[JPERF-375]: https://ecosystem.atlassian.net/browse/JPERF-375
+
 ## [0.4.3] - 2018-09-20
 [0.4.3]: https://bitbucket.org/atlassian/gradle-release/branches/compare/release-0.4.3%0Drelease-0.4.2
 

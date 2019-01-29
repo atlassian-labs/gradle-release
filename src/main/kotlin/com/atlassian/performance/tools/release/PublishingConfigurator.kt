@@ -4,9 +4,11 @@ import com.atlassian.performance.tools.SigningKeyInformationTask
 import com.atlassian.performance.tools.release.javadoc.Javadoc
 import com.atlassian.performance.tools.release.repositories.PublishingRepositories
 import com.atlassian.performance.tools.release.source.Source
+import org.eclipse.jgit.api.Git
 import org.gradle.api.Project
 import org.gradle.api.component.SoftwareComponent
 import org.gradle.api.publish.PublishingExtension
+import org.gradle.api.publish.maven.MavenPomScm
 import org.gradle.api.publish.maven.MavenPublication
 import org.gradle.api.publish.maven.tasks.GenerateMavenPom
 import org.gradle.api.tasks.bundling.Jar
@@ -30,12 +32,10 @@ class PublishingConfigurator(
         project.plugins.apply("org.gradle.maven-publish")
         val publishing = project.extensions[PublishingExtension.NAME] as org.gradle.api.publish.PublishingExtension
 
-        publishing.publications.create("mavenJava", MavenPublication::class.java) {
+        publishing.publications.register("mavenJava", MavenPublication::class.java) {
             pom {
                 scm {
-                    url.set("https://bitbucket.org/atlassian/${project.name}")
-                    connection.set("scm:git:git@bitbucket.org:atlassian/${project.name}.git")
-                    developerConnection.set("scm:git:git@bitbucket.org:atlassian/${project.name}.git")
+                    includeScm()
                 }
 
                 licenses {
@@ -64,6 +64,42 @@ class PublishingConfigurator(
 
         if (scmVersion.version.endsWith("SNAPSHOT").not()) {
             publishing.repositories.add(publishingRepositories.main)
+        }
+    }
+
+    private fun MavenPomScm.includeScm() {
+        val remoteHost: String? = scmVersion
+            .repository
+            .directory
+            .resolve(".git")
+            .let { if (it.exists()) it else null }
+            ?.let { Git.open(it) }
+            ?.use { repo ->
+                repo
+                    .remoteList()
+                    .call()
+                    .singleOrNull { it.name == "origin" }
+                    ?.urIs
+                    ?.single()
+                    ?.host
+            }
+        val projectName = project.name
+        when (remoteHost) {
+            null -> {
+                // we're fine with a missing SCM, because this is evaluated eagerly, ie. even if there is no publication
+                // a publication without a Git repo will still fail when the Axion plugin will try to push a tag
+            }
+            "bitbucket.org" -> {
+                url.set("https://bitbucket.org/atlassian/$projectName")
+                connection.set("scm:git:git@bitbucket.org:atlassian/$projectName.git")
+                developerConnection.set("scm:git:git@bitbucket.org:atlassian/$projectName.git")
+            }
+            "github.com" -> {
+                url.set("https://github.com/atlassian/$projectName")
+                connection.set("scm:git:git@github.com:atlassian/$projectName.git")
+                developerConnection.set("scm:git:git@github.com:atlassian/$projectName.git")
+            }
+            else -> throw Exception("Cannot infer POM SCM section from $remoteHost")
         }
     }
 
