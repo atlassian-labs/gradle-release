@@ -8,9 +8,14 @@ plugins {
     id("signing")
 }
 
+dependencyLocking {
+    lockAllConfigurations()
+}
+
 scmVersion {
     tag.prefix = "release"
 }
+
 project.version = scmVersion.version
 project.group = "com.atlassian.performance.tools"
 
