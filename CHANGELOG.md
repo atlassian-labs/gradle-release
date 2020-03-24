@@ -7,6 +7,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased]
 [Unreleased]: https://bitbucket.org/atlassian/gradle-release/branches/compare/master%0Drelease-0.5.0
 
+### Fixed
+- Bump `axion-release` to get better transitive dependencies.
+
 ## [0.5.0] - 2019-01-30
 [0.5.0]: https://bitbucket.org/atlassian/gradle-release/branches/compare/release-0.5.0%0Drelease-0.4.3
 
