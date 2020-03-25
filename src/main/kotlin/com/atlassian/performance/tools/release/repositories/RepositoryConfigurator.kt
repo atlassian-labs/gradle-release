@@ -11,7 +11,30 @@ import java.net.URI
 class RepositoryConfigurator(
     private val project: Project
 ) {
-    fun configureAtlassianRepositories(): PublishingRepositories {
+    fun configureAtlassianRepositories(private: Boolean): PublishingRepositories {
+        return if (private) {
+            configurePrivateAtlassianRepositories()
+        } else {
+            configurePublicAtlassianRepositories()
+        }
+    }
+
+    private fun configurePrivateAtlassianRepositories(): PublishingRepositories {
+        var main: MavenArtifactRepository? = null
+
+        project.repositories {
+            mavenLocal()
+
+            main = atlassianRepository {
+                name = "atlassian-private"
+                url = URI("https://maven.atlassian.com/private/")
+            }
+        }
+
+        return PublishingRepositories(main = main!!)
+    }
+
+    private fun configurePublicAtlassianRepositories(): PublishingRepositories {
         var main: MavenArtifactRepository? = null
 
         project.repositories {
