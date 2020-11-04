@@ -47,8 +47,8 @@ class RepositoryConfigurator(
             }
 
             main = atlassianRepository {
-                name = "atlassian-public"
-                url = URI("https://maven.atlassian.com/public/")
+                name = "atlassian-central"
+                url = URI("https://packages.atlassian.com/mvn/maven-central/")
             }
         }
 
