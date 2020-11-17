@@ -7,6 +7,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased]
 [Unreleased]: https://bitbucket.org/atlassian/gradle-release/branches/compare/master%0Drelease-0.7.1
 
+### Fixed
+- Fix repo URL for `gradleRelease.atlassianPrivateMode = true`.
+
 ## [0.7.1]
 [0.7.1]: https://bitbucket.org/atlassian/gradle-release/branches/compare/release-0.7.1%0Drelease-0.6.0
 

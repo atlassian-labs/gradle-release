@@ -27,7 +27,7 @@ class RepositoryConfigurator(
 
             main = atlassianRepository {
                 name = "atlassian-private"
-                url = URI("https://maven.atlassian.com/private/")
+                url = URI("https://packages.atlassian.com/mvn/maven-private/")
             }
         }
 
