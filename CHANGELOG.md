@@ -5,7 +5,10 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
-[Unreleased]: https://bitbucket.org/atlassian/gradle-release/branches/compare/master%0Drelease-0.7.1
+[Unreleased]: https://bitbucket.org/atlassian/gradle-release/branches/compare/master%0Drelease-0.7.2
+
+## [0.7.2] - 2020-11-17
+[0.7.2]: https://bitbucket.org/atlassian/gradle-release/branches/compare/release-0.7.2%0Drelease-0.7.1
 
 ### Fixed
 - Fix repo URL for `gradleRelease.atlassianPrivateMode = true`.
