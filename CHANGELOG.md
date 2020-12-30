@@ -7,6 +7,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased]
 [Unreleased]: https://bitbucket.org/atlassian/gradle-release/branches/compare/master%0Drelease-0.7.2
 
+### Fixed
+- Find license problems in more configurations, like `api` or `implementation`. Fix [JPERF-713].
+
+[JPERF-713]: https://ecosystem.atlassian.net/browse/JPERF-713
+
 ## [0.7.2] - 2020-11-17
 [0.7.2]: https://bitbucket.org/atlassian/gradle-release/branches/compare/release-0.7.2%0Drelease-0.7.1
 

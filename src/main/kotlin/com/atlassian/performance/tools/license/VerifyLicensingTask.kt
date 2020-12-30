@@ -36,7 +36,9 @@ open class VerifyLicensingTask : DefaultTask() {
     @TaskAction
     @Suppress("unused")
     fun verifyLicenses() {
-        val dependencies = resolveDependencies()
+        val dependencies = listOf("compileClasspath", "runtimeClasspath")
+            .flatMap { resolveDependencies(it) }
+            .toSet()
         getEmptyLicenseMessages(dependencies).forEach { logger.warn(it) }
         val illegalLicenseMessages = getIllegalLicenseMessages(dependencies)
         if (illegalLicenseMessages.isNotEmpty()) {
@@ -67,13 +69,13 @@ open class VerifyLicensingTask : DefaultTask() {
             .toList()
     }
 
-    private fun resolveDependencies(): Set<DependencyMetadata> {
+    private fun resolveDependencies(config: String): Set<DependencyMetadata> {
         val licenseResolver = LicenseResolver()
         licenseResolver.setProperty("project", project)
         licenseResolver.setProperty("includeProjectDependencies", true)
         licenseResolver.setProperty("ignoreFatalParseErrors", false)
         licenseResolver.setProperty("dependenciesToIgnore", listOf<String>())
-        licenseResolver.setProperty("dependencyConfiguration", "compile")
+        licenseResolver.setProperty("dependencyConfiguration", config)
         return licenseResolver.provideLicenseMap4Dependencies()
     }
 }
