@@ -1,8 +1,8 @@
 package com.atlassian.performance.tools.license
 
+import org.assertj.core.api.Assertions.assertThat
 import org.gradle.testkit.runner.GradleRunner
-import org.gradle.testkit.runner.TaskOutcome.SUCCESS
-import org.junit.Assert.assertEquals
+import org.gradle.testkit.runner.TaskOutcome
 import org.junit.Test
 import org.junit.rules.TemporaryFolder
 import java.io.File
@@ -10,15 +10,17 @@ import java.io.File
 class VerifyLicensingTaskTest {
 
     @Test
-    fun shouldVerifyLicenses() {
+    fun shouldFailAMissingLicense() {
         val result = GradleRunner.create()
                 .withProjectDir(configureBuildGradle())
                 .withArguments(":check")
                 .withPluginClasspath()
+                .withGradleVersion("6.7")
                 .withDebug(true)
-                .build()
+                .buildAndFail()
 
-        assertEquals(SUCCESS, result.task(":verifyLicensing")!!.outcome)
+        assertThat(result.task(":verifyLicensing")?.outcome).isEqualTo(TaskOutcome.FAILED)
+        assertThat(result.output).contains("'No license found' in 'net.jcip:jcip-annotations:1.0'")
     }
 
     private fun configureBuildGradle(): File {
@@ -28,9 +30,11 @@ class VerifyLicensingTaskTest {
         buildGradle.writeText("""
             plugins {
                 id 'com.atlassian.performance.tools.gradle-release'
+                id 'java-library'
             }
 
             dependencies {
+                api 'net.jcip:jcip-annotations:1.0'
                 compile 'com.amazonaws:aws-java-sdk-iam:1.11.298'
                 compile 'org.codehaus.mojo:animal-sniffer-annotations:1.14'
                 compile 'org.jsoup:jsoup:1.10.2'
