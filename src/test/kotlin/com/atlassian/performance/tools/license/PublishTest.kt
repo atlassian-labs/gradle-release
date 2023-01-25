@@ -19,12 +19,14 @@ class PublishTest {
 
     @Test
     fun shouldPublishModule() {
-        val projectName = "release-test"
+        val projectName = "publish-test"
         val version = "0.3.0"
-        val project = configureProject(projectName, version)
+        val project = Fixtures().configureProject(projectName, version)
+        val realisticLookingRemote = URIish("git@github.com:atlassian/jira-actions.git") // not actually pushed to
+        project.git.addRemote(realisticLookingRemote)
 
         val publishResult = GradleRunner.create()
-            .withProjectDir(project)
+            .withProjectDir(project.root)
             .withArguments("publishToMavenLocal", "--stacktrace")
             .withPluginClasspath()
             .forwardOutput()
@@ -39,13 +41,13 @@ class PublishTest {
         val scm = extractScm(pomXml)
         assertThat(scm.getChildValue("url"))
             .`as`("SCM url in $pomXml")
-            .isEqualTo("https://github.com/atlassian/release-test")
+            .isEqualTo("https://github.com/atlassian/publish-test")
         assertThat(scm.getChildValue("connection"))
             .`as`("SCM connection in $pomXml")
-            .isEqualTo("scm:git:git@github.com:atlassian/release-test.git")
+            .isEqualTo("scm:git:git@github.com:atlassian/publish-test.git")
         assertThat(scm.getChildValue("developerConnection"))
             .`as`("SCM dev connection in $pomXml")
-            .isEqualTo("scm:git:git@github.com:atlassian/release-test.git")
+            .isEqualTo("scm:git:git@github.com:atlassian/publish-test.git")
     }
 
     private fun extractScm(
@@ -59,90 +61,6 @@ class PublishTest {
             .getElementsByTagName("scm")
             .toIterable()
             .single()
-    }
-
-    private fun configureProject(
-        projectName: String,
-        version: String
-    ): File {
-        val buildFolder = TemporaryFolder()
-        buildFolder.create()
-        val git = Git.init().setDirectory(buildFolder.root).call()
-        addInitialCommit(projectName, buildFolder, git)
-        git.tag().setName("release-$version-alpha").call()
-        addCode(buildFolder, git)
-        addRemote(git)
-        return buildFolder.root
-    }
-
-    private fun addInitialCommit(
-        projectName: String,
-        buildFolder: TemporaryFolder,
-        git: Git
-    ) {
-        buildFolder.newFile("build.gradle").writeText(
-            """
-            plugins {
-                id 'com.atlassian.performance.tools.gradle-release'
-                id "org.jetbrains.kotlin.jvm" version "1.3.20"
-            }
-            dependencies {
-                compile group: 'org.jetbrains.kotlin', name: 'kotlin-stdlib-jdk8', version: '1.3.20'
-            }
-            """.trimIndent()
-        )
-        buildFolder.newFile("settings.gradle").writeText(
-            """
-            rootProject.name = "$projectName"
-            """.trimIndent()
-        )
-        buildFolder.newFile(".gitignore").writeText(
-            """
-            .gradle
-            build
-            """.trimIndent()
-        )
-        git
-            .add()
-            .addFilepattern(".gitignore")
-            .addFilepattern("settings.gradle")
-            .addFilepattern("build.gradle")
-            .call()
-        git
-            .commit()
-            .setMessage("Initial commit")
-            .call()
-    }
-
-    private fun addCode(
-        buildFolder: TemporaryFolder,
-        git: Git
-    ) {
-        val javaFolder = buildFolder.newFolder("src", "main", "kotlin")
-        File(javaFolder, "Hello.kt").writeText(
-            """
-            class Hello {
-            }
-            """.trimIndent()
-        )
-        git
-            .add()
-            .addFilepattern("src")
-            .call()
-        git
-            .commit()
-            .setMessage("Hello world")
-            .call()
-    }
-
-    private fun addRemote(
-        git: Git
-    ) {
-        git
-            .remoteAdd()
-            .also { it.setName("origin") }
-            .also { it.setUri(URIish("git@github.com:atlassian/jira-actions.git")) }
-            .call()
     }
 
     private fun findPublishedPom(
