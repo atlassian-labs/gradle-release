@@ -13,16 +13,13 @@ class JavadocConfigurator(
 
         project.plugins.apply("org.jetbrains.dokka")
 
-        val dokka = project.tasks.getByName<DokkaTask>("dokka") {
-            outputFormat = "html"
-            outputDirectory = "${project.buildDir}/javadoc"
-
-            reportUndocumented = false
+        val dokka = project.tasks.getByName<DokkaTask>("dokkaHtml") {
+            outputDirectory.set(project.buildDir.resolve("javadoc"))
         }
 
         val javadocJar = project.tasks.create("javadocJar", Jar::class.java) {
             group = JavaBasePlugin.DOCUMENTATION_GROUP
-            classifier = "javadoc"
+            archiveClassifier.set("javadoc")
             from(dokka)
         }
 

@@ -43,7 +43,7 @@ pluginBundle {
 
 dependencies {
     implementation(gradlePlugin("pl.allegro.tech.build.axion-release", "1.11.0"))
-    implementation(gradlePlugin("org.jetbrains.dokka", "0.9.17"))
+    implementation(gradlePlugin("org.jetbrains.dokka", "1.7.20"))
     implementation(gradlePlugin("com.github.hierynomus.license", "0.14.0"))
     implementation("net.linguica.gradle:maven-settings-plugin:0.5")
     testImplementation("junit:junit:4.12")
