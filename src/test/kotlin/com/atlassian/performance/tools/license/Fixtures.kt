@@ -1,6 +1,10 @@
 package com.atlassian.performance.tools.license
 
+import org.eclipse.jgit.api.CreateBranchCommand.SetupUpstreamMode.SET_UPSTREAM
+import org.eclipse.jgit.api.CreateBranchCommand.SetupUpstreamMode.TRACK
 import org.eclipse.jgit.api.Git
+import org.eclipse.jgit.lib.ConfigConstants
+import org.eclipse.jgit.lib.ConfigConstants.CONFIG_BRANCH_SECTION
 import org.eclipse.jgit.transport.URIish
 import org.junit.rules.TemporaryFolder
 import java.io.File
@@ -86,9 +90,14 @@ class Fixtures {
     }
 }
 
-internal fun Git.addRemote(uri: URIish) {
+internal fun Git.addOrigin(uri: URIish) {
     remoteAdd()
-        .apply { setName("origin") }
-        .apply { setUri(uri) }
+        .setName("origin")
+        .setUri(uri)
         .call()
+    repository.config.apply {
+        setString(CONFIG_BRANCH_SECTION, "master", "remote", "origin")
+        setString(CONFIG_BRANCH_SECTION, "master", "merge", "refs/heads/master")
+        save()
+    }
 }

@@ -23,7 +23,7 @@ class PublishTest {
         val version = "0.3.0"
         val project = Fixtures().configureProject(projectName, version)
         val realisticLookingRemote = URIish("git@github.com:atlassian/jira-actions.git") // not actually pushed to
-        project.git.addRemote(realisticLookingRemote)
+        project.git.addOrigin(realisticLookingRemote)
 
         val publishResult = GradleRunner.create()
             .withProjectDir(project.root)

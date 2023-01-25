@@ -18,9 +18,10 @@ class ReleaseTest {
         val safelyPushableRemote = TemporaryFolder()
             .also { it.create() }
             .root
-            .also { Git.init().setDirectory(it) }
-            .let {URIish("file://${it.absolutePath}")}
-        project.git.addRemote(safelyPushableRemote)
+            .also { Git.init().setDirectory(it).call() }
+            .let { URIish("file://${it.absolutePath}") }
+        project.git.addOrigin(safelyPushableRemote)
+        project.git.push().call()
 
         val releaseResult = GradleRunner.create()
             .withProjectDir(project.root)
