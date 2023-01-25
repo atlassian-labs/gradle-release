@@ -12,7 +12,7 @@ class ReleaseConfigurator(
         project.plugins.apply("pl.allegro.tech.build.axion-release")
         val scmVersion = project.extensions[ReleasePlugin.VERSION_EXTENSION] as VersionConfig
 
-        scmVersion.tag.prefix = "release"
+        scmVersion.tag.prefix.set("release-")
         project.version = scmVersion.version
         project.group = "com.atlassian.performance.tools"
 

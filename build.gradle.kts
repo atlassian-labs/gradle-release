@@ -42,10 +42,11 @@ pluginBundle {
 }
 
 dependencies {
-    implementation(gradlePlugin("pl.allegro.tech.build.axion-release", "1.11.0"))
+    implementation(gradlePlugin("pl.allegro.tech.build.axion-release", "1.14.3"))
     implementation(gradlePlugin("org.jetbrains.dokka", "1.7.20"))
     implementation(gradlePlugin("com.github.hierynomus.license", "0.14.0"))
     implementation("net.linguica.gradle:maven-settings-plugin:0.5")
+    implementation("org.eclipse.jgit:org.eclipse.jgit:5.13.1.202206130422-r")
     testImplementation("junit:junit:4.12")
     testImplementation("org.assertj:assertj-core:3.11.0")
 }

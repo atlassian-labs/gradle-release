@@ -7,6 +7,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased]
 [Unreleased]: https://bitbucket.org/atlassian/gradle-release/branches/compare/master%0Drelease-0.7.3
 
+### Added
+- Support Gradle 7. Fix [JPERF-941].
+
+[JPERF-941]: https://ecosystem.atlassian.net/browse/JPERF-941
+
 ## [0.7.3] - 2021-01-07
 [0.7.3]: https://bitbucket.org/atlassian/gradle-release/branches/compare/release-0.7.3%0Drelease-0.7.2
 

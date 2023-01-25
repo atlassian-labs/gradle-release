@@ -71,6 +71,8 @@ class PublishingConfigurator(
         val remoteHost: String? = scmVersion
             .repository
             .directory
+            .asFile
+            .get()
             .resolve(".git")
             .let { if (it.exists()) it else null }
             ?.let { Git.open(it) }
