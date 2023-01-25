@@ -13,7 +13,7 @@ class BuildTest {
     fun shouldExecuteTestTask() {
         val result = GradleRunner.create()
             .withProjectDir(configureBuildGradle())
-            .withArguments("build")
+            .withArguments("build", "--stacktrace")
             .withPluginClasspath()
             .withDebug(true)
             .build()
@@ -29,11 +29,11 @@ class BuildTest {
             """
             plugins {
                 id 'com.atlassian.performance.tools.gradle-release'
-                id "org.jetbrains.kotlin.jvm" version "1.2.61"
+                id "org.jetbrains.kotlin.jvm" version "1.3.20"
             }
 
             dependencies {
-                compile 'org.jetbrains.kotlin:kotlin-stdlib-jdk8:1.2.61'
+                compile 'org.jetbrains.kotlin:kotlin-stdlib-jdk8:1.3.20'
                 testCompile 'junit:junit:4.12'
             }
         """.trimIndent()

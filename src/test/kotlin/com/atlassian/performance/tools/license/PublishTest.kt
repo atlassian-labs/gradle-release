@@ -25,7 +25,7 @@ class PublishTest {
 
         val publishResult = GradleRunner.create()
             .withProjectDir(project)
-            .withArguments("publishToMavenLocal")
+            .withArguments("publishToMavenLocal", "--stacktrace")
             .withPluginClasspath()
             .forwardOutput()
             .withDebug(true)
@@ -84,10 +84,10 @@ class PublishTest {
             """
             plugins {
                 id 'com.atlassian.performance.tools.gradle-release'
-                id "org.jetbrains.kotlin.jvm" version "1.2.61"
+                id "org.jetbrains.kotlin.jvm" version "1.3.20"
             }
             dependencies {
-                compile group: 'org.jetbrains.kotlin', name: 'kotlin-stdlib-jdk8', version: '1.2.61'
+                compile group: 'org.jetbrains.kotlin', name: 'kotlin-stdlib-jdk8', version: '1.3.20'
             }
             """.trimIndent()
         )
