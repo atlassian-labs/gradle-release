@@ -1,13 +1,19 @@
 package com.atlassian.performance.tools
 
 import org.gradle.api.DefaultTask
+import org.gradle.api.tasks.Input
 import org.gradle.api.tasks.TaskAction
 import org.gradle.kotlin.dsl.extra
 import java.lang.System.getenv
 
 open class SigningKeyInformationTask : DefaultTask() {
+    @Input
     val signingKeyId = "signing.keyId"
+
+    @Input
     val signingSecretKeyRingFile = "signing.secretKeyRingFile"
+
+    @Input
     val signingPassword = "signing.password"
 
     @TaskAction
