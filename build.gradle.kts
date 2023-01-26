@@ -4,7 +4,7 @@ plugins {
     `java-gradle-plugin`
     `kotlin-dsl`
     id("com.gradle.plugin-publish").version("0.12.0")
-    id("pl.allegro.tech.build.axion-release").version("1.8.1")
+    id("pl.allegro.tech.build.axion-release").version("1.14.3")
     id("signing")
 }
 
@@ -13,7 +13,7 @@ dependencyLocking {
 }
 
 scmVersion {
-    tag.prefix = "release"
+    tag.prefix.set("release-")
 }
 
 project.version = scmVersion.version
