@@ -7,14 +7,16 @@ import org.gradle.api.tasks.TaskAction
 
 open class VerifyLicensingTask : DefaultTask() {
     private val allowedLicenses = setOf(
-        "The Apache Software License, Version 2.0",
+        "The Apache Software License, Version 2.0", // https://choosealicense.com/licenses/apache-2.0/
         "Apache License, Version 2.0",
         "Apache 2",
         "Apache 2.0",
         "Apache License 2.0",
+        "Apache License v2.0",
         "Apache Public License 2.0",
         "The Apache License, Version 2.0",
         "Bouncy Castle Licence",
+        "MIT", // https://choosealicense.com/licenses/mit/
         "MIT license",
         "MIT License",
         "The MIT License",
@@ -30,7 +32,8 @@ open class VerifyLicensingTask : DefaultTask() {
         "Eclipse Public License 1.0",
         "GNU General Public License, version 2 (GPL2), with the classpath exception",
         "GPL2 w/ CPE",
-        "GNU Lesser General Public License"
+        "GNU Lesser General Public License", // https://choosealicense.com/licenses/lgpl-2.1/
+        "LGPL, version 2.1"
     )
 
     @TaskAction

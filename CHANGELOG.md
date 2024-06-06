@@ -7,6 +7,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased]
 [Unreleased]: https://github.com/atlassian-labs/gradle-release/compare/release-0.7.3...master
 
+## Added
+- Allowlist alternate spellings of Apache, MIT and LGPL licenses.
+
 ## [0.8.0] - 2023-01-27
 [0.8.0]: https://github.com/atlassian-labs/gradle-release/compare/release-0.7.3...release-0.8.0
 
