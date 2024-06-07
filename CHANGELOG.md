@@ -7,7 +7,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased]
 [Unreleased]: https://github.com/atlassian-labs/gradle-release/compare/release-0.9.0...master
 
-## [0.9.0] - 2025-06-07
+## [0.9.0] - 2024-06-07
 [0.9.0]: https://github.com/atlassian-labs/gradle-release/compare/release-0.8.0...release-0.9.0
 
 ## Added
