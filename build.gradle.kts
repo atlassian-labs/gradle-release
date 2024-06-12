@@ -1,5 +1,3 @@
-import org.gradle.api.tasks.testing.logging.TestExceptionFormat
-
 plugins {
     `java-gradle-plugin`
     `kotlin-dsl`

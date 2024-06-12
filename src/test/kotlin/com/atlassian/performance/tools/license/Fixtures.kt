@@ -1,9 +1,6 @@
 package com.atlassian.performance.tools.license
 
-import org.eclipse.jgit.api.CreateBranchCommand.SetupUpstreamMode.SET_UPSTREAM
-import org.eclipse.jgit.api.CreateBranchCommand.SetupUpstreamMode.TRACK
 import org.eclipse.jgit.api.Git
-import org.eclipse.jgit.lib.ConfigConstants
 import org.eclipse.jgit.lib.ConfigConstants.CONFIG_BRANCH_SECTION
 import org.eclipse.jgit.transport.URIish
 import org.junit.rules.TemporaryFolder
@@ -37,8 +34,8 @@ class Fixtures {
         buildFolder.newFile("build.gradle").writeText(
             """
             plugins {
-                id 'com.atlassian.performance.tools.gradle-release'
                 id "org.jetbrains.kotlin.jvm" version "1.3.20"
+                id 'com.atlassian.performance.tools.gradle-release' version "0.9.0"
             }
             dependencies {
                 compile group: 'org.jetbrains.kotlin', name: 'kotlin-stdlib-jdk8', version: '1.3.20'
