@@ -37,9 +37,6 @@ class Fixtures {
                 id "org.jetbrains.kotlin.jvm" version "1.3.20"
                 id 'com.atlassian.performance.tools.gradle-release' version "0.9.0"
             }
-            dependencies {
-                compile group: 'org.jetbrains.kotlin', name: 'kotlin-stdlib-jdk8', version: '1.3.20'
-            }
             """.trimIndent()
         )
         buildFolder.newFile("settings.gradle").writeText(
