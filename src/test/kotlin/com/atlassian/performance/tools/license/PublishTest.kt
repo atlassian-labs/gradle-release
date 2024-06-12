@@ -28,7 +28,6 @@ class PublishTest {
         val publishResult = GradleRunner.create()
             .withProjectDir(project.root)
             .withArguments("publishToMavenLocal", "--stacktrace")
-            .withPluginClasspath()
             .forwardOutput()
             .withDebug(true)
             .build()
