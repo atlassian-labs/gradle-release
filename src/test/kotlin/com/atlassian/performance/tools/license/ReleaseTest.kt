@@ -25,15 +25,7 @@ class ReleaseTest {
         project.git.addOrigin(safelyPushableRemote)
         project.git.push().call()
 
-        val markNextVersion = project.buildTask(
-            "markNextVersion",
-            "-Prelease.incrementer=incrementPatch",
-            "-Prelease.localOnly",
-            "--stacktrace"
-        )
-        assertThat(markNextVersion?.task(":markNextVersion")?.outcome).isEqualTo(SUCCESS)
-
-        val release = project.buildTask("release", "--stacktrace")
+        val release = project.buildTask("release", "-Prelease.incrementer=incrementPatch", "--stacktrace")
         assertThat(release?.task(":release")?.outcome).isEqualTo(SUCCESS)
 
         val currentVersion = project.buildTask("currentVersion")
