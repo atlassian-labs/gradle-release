@@ -1,10 +1,12 @@
 package com.atlassian.performance.tools.license
 
+import com.atlassian.performance.tools.license.Fixtures.ProjectFixture
 import org.assertj.core.api.Assertions.assertThat
 import org.eclipse.jgit.api.Git
 import org.eclipse.jgit.transport.URIish
+import org.gradle.testkit.runner.BuildResult
 import org.gradle.testkit.runner.GradleRunner
-import org.gradle.testkit.runner.TaskOutcome
+import org.gradle.testkit.runner.TaskOutcome.SUCCESS
 import org.junit.Test
 import org.junit.rules.TemporaryFolder
 
@@ -23,16 +25,28 @@ class ReleaseTest {
         project.git.addOrigin(safelyPushableRemote)
         project.git.push().call()
 
-        val releaseResult = GradleRunner.create()
-            .withProjectDir(project.root)
-            .withArguments("release", "--stacktrace")
+        val markNextVersion = project.buildTask(
+            "markNextVersion",
+            "-Prelease.incrementer=incrementPatch",
+            "-Prelease.localOnly",
+            "--stacktrace"
+        )
+        assertThat(markNextVersion?.task(":markNextVersion")?.outcome).isEqualTo(SUCCESS)
+
+        val release = project.buildTask("release", "--stacktrace")
+        assertThat(release?.task(":release")?.outcome).isEqualTo(SUCCESS)
+
+        val currentVersion = project.buildTask("currentVersion")
+        assertThat(currentVersion?.output).contains("1.2.5")
+    }
+
+    private fun ProjectFixture.buildTask(task: String, vararg args: String): BuildResult? {
+        return GradleRunner.create()
+            .withProjectDir(this.root)
+            .withArguments(task, *args)
             .withPluginClasspath()
             .forwardOutput()
             .withDebug(true)
             .build()
-
-        val releaseTask = releaseResult.task(":release")
-        assertThat(releaseTask?.outcome)
-            .isEqualTo(TaskOutcome.SUCCESS)
     }
 }

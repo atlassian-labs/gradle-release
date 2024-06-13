@@ -24,7 +24,7 @@ class Fixtures {
         buildFolder.create()
         val git = Git.init().setDirectory(buildFolder.root).call()
         addInitialCommit(projectName, buildFolder, git)
-        git.tag().setName("release-$version-alpha").call()
+        git.tag().setName("release-$version").call()
         addCode(buildFolder, git)
         return ProjectFixture(buildFolder.root, git)
     }
