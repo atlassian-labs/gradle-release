@@ -45,7 +45,7 @@ class PublishTest {
         val publishTask = publishResult.task(":publishToMavenLocal")
         assertThat(publishTask?.outcome)
             .isEqualTo(TaskOutcome.SUCCESS)
-        val pomXml = findPublishedPom("$version-SNAPSHOT")
+        val pomXml = findPublishedPom("0.3.1-SNAPSHOT")
         assertThat(pomXml).exists()
         val scm = extractScm(pomXml)
         assertThat(scm.getChildValue("url"))
