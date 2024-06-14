@@ -5,21 +5,30 @@ import org.eclipse.jgit.api.Git
 import org.eclipse.jgit.transport.URIish
 import org.gradle.testkit.runner.GradleRunner
 import org.gradle.testkit.runner.TaskOutcome
+import org.junit.Before
 import org.junit.Test
 import org.junit.rules.TemporaryFolder
 import org.w3c.dom.Document
 import org.w3c.dom.Node
 import org.w3c.dom.NodeList
 import java.io.File
+import java.nio.file.Path
 import java.nio.file.Paths
 import javax.xml.parsers.DocumentBuilderFactory
 
 class PublishTest {
 
+    private val projectName = "publish-test"
+
+    @Before
+    fun cleanUp() {
+        findLocalPublication().toFile()
+            .takeIf { it.exists() }
+            ?.deleteRecursively()
+    }
 
     @Test
     fun shouldPublishModule() {
-        val projectName = "publish-test"
         val version = "0.3.0"
         val project = Fixtures().configureProject(projectName, version)
         val realisticLookingRemote = URIish("git@github.com:atlassian/jira-actions.git") // not actually pushed to
@@ -36,7 +45,7 @@ class PublishTest {
         val publishTask = publishResult.task(":publishToMavenLocal")
         assertThat(publishTask?.outcome)
             .isEqualTo(TaskOutcome.SUCCESS)
-        val pomXml = findPublishedPom(projectName, "$version-SNAPSHOT")
+        val pomXml = findPublishedPom("$version-SNAPSHOT")
         assertThat(pomXml).exists()
         val scm = extractScm(pomXml)
         assertThat(scm.getChildValue("url"))
@@ -64,9 +73,13 @@ class PublishTest {
     }
 
     private fun findPublishedPom(
-        projectName: String,
         publishedVersion: String
-    ): File = Paths.get(System.getProperty("user.home"))
+    ): File = findLocalPublication()
+        .resolve(publishedVersion)
+        .resolve("$projectName-$publishedVersion.pom")
+        .toFile()
+
+    private fun findLocalPublication(): Path = Paths.get(System.getProperty("user.home"))
         .resolve(".m2")
         .resolve("repository")
         .resolve("com")
@@ -74,9 +87,6 @@ class PublishTest {
         .resolve("performance")
         .resolve("tools")
         .resolve(projectName)
-        .resolve(publishedVersion)
-        .resolve("$projectName-$publishedVersion.pom")
-        .toFile()
 
     private fun NodeList.toIterable(): Iterable<Node> = object : Iterable<Node> {
         override fun iterator(): Iterator<Node> {
