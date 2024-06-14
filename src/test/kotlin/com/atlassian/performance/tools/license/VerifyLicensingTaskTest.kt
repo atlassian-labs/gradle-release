@@ -61,6 +61,7 @@ class VerifyLicensingTaskTest {
                 compile("io.github.bonigarcia:webdrivermanager:1.7.1")
                 implementation("com.atlassian.data:random-data:1.4.3")
                 implementation("org.apache.logging.log4j:log4j-api:2.23.1")
+                implementation("javax.activation:activation:1.1.1")
             }
             """.trimIndent()
 
