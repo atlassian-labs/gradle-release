@@ -11,6 +11,7 @@ open class VerifyLicensingTask : DefaultTask() {
         "Apache License, Version 2.0",
         "Apache 2",
         "Apache 2.0",
+        "Apache-2.0",
         "Apache License 2.0",
         "Apache License v2.0",
         "Apache Public License 2.0",
@@ -23,6 +24,7 @@ open class VerifyLicensingTask : DefaultTask() {
         "Revised BSD",
         "New BSD License",
         "BSD",
+        "BSD License",
         "CC0 1.0 Universal",
         "CDDL 1.1",
         "CDDL+GPL License",
@@ -63,6 +65,9 @@ open class VerifyLicensingTask : DefaultTask() {
             }
     }
 
+    /**
+     * https://choosealicense.com/no-permission/
+     */
     private fun getEmptyLicenseMessages(dependencies: Set<DependencyMetadata>): List<String> {
         return dependencies
             .filterNot(DependencyMetadata::hasLicense)
