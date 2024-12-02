@@ -3,8 +3,8 @@ import org.gradle.api.tasks.testing.logging.TestExceptionFormat
 plugins {
     `java-gradle-plugin`
     `kotlin-dsl`
-    id("com.gradle.plugin-publish").version("0.12.0")
-    id("pl.allegro.tech.build.axion-release").version("1.14.3")
+    id("com.gradle.plugin-publish").version("0.21.0")
+    id("pl.allegro.tech.build.axion-release").version("1.18.16")
     id("signing")
 }
 
@@ -42,11 +42,11 @@ pluginBundle {
 }
 
 dependencies {
-    implementation(gradlePlugin("pl.allegro.tech.build.axion-release", "1.14.3"))
-    implementation(gradlePlugin("org.jetbrains.dokka", "1.7.20"))
-    implementation(gradlePlugin("com.github.hierynomus.license", "0.14.0"))
-    implementation("net.linguica.gradle:maven-settings-plugin:0.5")
-    implementation("org.eclipse.jgit:org.eclipse.jgit:5.13.1.202206130422-r")
+    implementation(gradlePlugin("pl.allegro.tech.build.axion-release", "1.18.16"))
+    implementation(gradlePlugin("org.jetbrains.dokka", "1.9.20"))
+    implementation(gradlePlugin("com.github.hierynomus.license", "0.15.0"))
+    implementation("io.github.rmanibus.gradle:maven-settings-plugin:0.7")
+    implementation("org.eclipse.jgit:org.eclipse.jgit:6.10.0.202406032230-r")
     testImplementation("junit:junit:4.12")
     testImplementation("org.assertj:assertj-core:3.11.0")
 }
@@ -63,6 +63,6 @@ repositories {
 }
 
 tasks.wrapper {
-    gradleVersion = "7.6"
+    gradleVersion = "8.11"
     distributionType = Wrapper.DistributionType.ALL
 }

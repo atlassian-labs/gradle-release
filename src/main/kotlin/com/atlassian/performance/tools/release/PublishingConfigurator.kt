@@ -18,6 +18,7 @@ import org.gradle.kotlin.dsl.getByName
 import org.gradle.plugins.signing.Sign
 import org.gradle.plugins.signing.SigningExtension
 import pl.allegro.tech.build.axion.release.domain.VersionConfig
+import java.io.File
 
 class PublishingConfigurator(
     private val project: Project,
@@ -50,7 +51,7 @@ class PublishingConfigurator(
             artifact(source.jar)
             artifact(javadoc.jar)
         }
-        val signingExtension = SigningExtension(project)
+        val signingExtension = project.extensions.getByType(SigningExtension::class.java)
         signingExtension.sign(publishing.publications)
         val gatherKeyInformation = project.tasks.create("gatherKeyInformation", SigningKeyInformationTask::class.java)
         gatherKeyInformation.group = "Release"
@@ -68,11 +69,12 @@ class PublishingConfigurator(
     }
 
     private fun MavenPomScm.includeScm() {
-        val remoteHost: String? = scmVersion
-            .repository
-            .directory
-            .asFile
-            .get()
+        val remoteHost: String? = File(
+                scmVersion
+                .repository
+                .directory
+                .get()
+            )
             .resolve(".git")
             .let { if (it.exists()) it else null }
             ?.let { Git.open(it) }

@@ -19,7 +19,7 @@ class SourceConfigurator(
 
         return Source(
             project.tasks.create("sourcesJar", Jar::class.java) {
-                classifier = "sources"
+                archiveClassifier.set("sources")
                 from(java.sourceSets["main"].allSource)
             }
         )

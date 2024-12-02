@@ -13,7 +13,7 @@ Please read [how to test gradle plugins](https://guides.gradle.org/testing-gradl
     
 ## Developer’s environment
 
-You can build and run JPT on MacOS, Windows or Linux. You'll need JDK 8-11 to build and test the project.
+You can build and run JPT on MacOS, Windows or Linux. You'll need JDK 11 to build and test the project.
 
 ## Submitting changes
  
